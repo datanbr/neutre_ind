@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "type": "SERVICE",
+    "category": "ENTRETIEN_CENTRALE_NUCLÉAIRE",
+    "subCategory": "LAVAGE_TUYAUTERIE"
+  },
+  "scoringElements": ["CARBON"],
+  "phases": [
+    {
+      "order": 1,
+      "name": "TRANSPORT",
+      "description": "Phase de transport",
+      "modules": [
+        {
+          "name": "TRANSPORT_DE_PERSONNES",
+          "description": "Déplacement des personnes",
+          "inputs": [
+            {
+              "key": "TRANSPORT_VOITURES",
+              "title": "Déplacement en voiture",
+              "type": "FIXED_ROWS_TABLE",
+              "data": {
+                "columns": [
+                  {
+                    "key": "NOMBRE_VEHICULES_UTILISE",
+                    "title": "Nombre de véhicules",
+                    "type": "NUMBER"
+                  },
+                  {
+                    "key": "KM_PAR_VEHICULE",
+                    "title": "Nombre de kilomètres par véhicule",
+                    "type": "NUMBER"
+                  },
+                  {
+                    "key": "CARBON_FACTOR",
+                    "title": "Facteur carbone (gCO2eq/km)",
+                    "type": "CONSTANT",
+                    "value": 100
+                  }
+                ],
+                "rows": [
+                  {
+                    "key": "VOITURE_THERMIQUE",
+                    "name": "Voiture thermique",
+                    "values": [2, 500, 100]
+                  },
+                  {
+                    "key": "UTILITAIRE",
+                    "name": "Utilitaire léger",
+                    "values": [3, 800, 100]
+                  }
+                ],
+                "scoringPerLine": "NOMBRE_VEHICULES_UTILISE * KM_PAR_VEHICULE * CARBON_FACTOR"
+              }
+            }
+          ],
+          "scoring": "TRANSPORT_VOITURES"
+        }
+      ]
+    }
+  ]
+}
